@@ -1,7 +1,8 @@
 package com.example.project;
 
-//only needs a constructor
-public class Trophy  { //child of trophy
-    public Trophy(int x, int y){
+//subclass of treasure 
+public class Trophy extends Treasure {
+    public Trophy(int x, int y) {
+        super(x, y);//looks at treasure which treasure looks at sprite 
     }
 }
