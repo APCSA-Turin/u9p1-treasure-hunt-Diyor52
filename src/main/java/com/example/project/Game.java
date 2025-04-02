@@ -62,9 +62,10 @@ public class Game {
                 //uses for loop to chck the whole grid and replace every trophy, treasure, and dot with a skull except the player with a dot 
                 for(int row = 0; row < size; row++) {
                     for(int col = 0; col < size; col++) {//checking through the grid
-                        Sprite current = grid.getGrid()[row][col];
+                        Sprite[][] gridArray = grid.getGrid();
+                        Sprite current = gridArray[row][col];
                         if(current instanceof Dot || current instanceof Enemy || current instanceof Trophy || current instanceof Treasure || current instanceof Wall) {
-                            grid.getGrid()[row][col] = new Skull(col, size-1-row);//calls to a new skull emoji to replace the other emojis
+                            gridArray[row][col] = new Skull(col, size-1-row);//calls to a new skull emoji to replace the other emojis
                             //if the grid has any of the instances at that place it replaces it with a skull 
                         }
                     }
@@ -81,9 +82,10 @@ public class Game {
                 grid.placeSprite(player);//places the player on the trophy tile as player moves there 
                 for(int row = 0; row < size; row++) {//once again checks all of the grid 
                     for(int col = 0; col < size; col++) {
-                        Sprite current = grid.getGrid()[row][col];
+                        Sprite[][] gridArray = grid.getGrid();
+                        Sprite current = gridArray[row][col];
                         if(current instanceof Dot || current instanceof Enemy|| current instanceof Wall) {//if any of dots or enemies 
-                            grid.getGrid()[row][col] = new Treasure(col, size-1-row);
+                            gridArray[row][col]= new Treasure(col, size-1-row);
                             //replaces grid with treasure all around except the former treasure places and player/old trophy place as player colleted trophy and no need to go over player 
                         }
                     }
@@ -116,7 +118,9 @@ public class Game {
                         }else if (direction.equals("d")) {//d is right so plus 1 to x
                             newX++;
                         }
-                        Sprite target = grid.getGrid()[size-1-newY][newX];//the position of the sprite in terms of row col to keep track 
+                        Sprite[][] gridArray = grid.getGrid();
+                        Sprite target = gridArray[size-1-newY][newX];
+                        //the position of the sprite in terms of row col to keep track 
                         if (target instanceof Trophy) {//if the sprite is on the trophy position 
                             if (player.getTreasureCount() == treasures.length) {//first checks if all the treasure collected 
                                 grid.placeSprite(new Dot(oldX, oldY));//places dot in old value of player 
